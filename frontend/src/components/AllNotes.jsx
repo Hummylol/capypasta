@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Toaster, toast } from 'sonner';
+import Lenis from 'lenis';
+
 
 const AllNotes = () => {
   const { subject } = useParams();
@@ -9,7 +11,18 @@ const AllNotes = () => {
   const [error, setError] = useState(null);
   const [expandedNoteId, setExpandedNoteId] = useState(null); 
   const navigate = useNavigate();
+  useEffect(() => {
+    const lenis = new Lenis();
 
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+  }, []);
+
+  
   useEffect(() => {
     const fetchNotes = async () => {
       try {
